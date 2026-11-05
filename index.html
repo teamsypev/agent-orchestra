@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Agent Coworking</title>
+  <meta name="description" content="A pixel coworking space where a team of Claude agents walks around, plans, searches the web and writes answers — live." />
+  <meta name="theme-color" content="#2b2640" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="view" aria-label="Pixel office with agents at work"></canvas>
+  <div id="bubbles" aria-hidden="true"></div>
+  <div id="tip" class="tip" hidden></div>
+
+  <header class="hud-top">
+    <div class="titles">
+      <h1 data-i18n="title"></h1>
+      <p class="sub" data-i18n="subtitle"></p>
+      <p class="status" id="status"></p>
+    </div>
+    <div class="top-actions">
+      <a class="pbtn" href="https://github.com/teamsypev/agent-orchestra" target="_blank" rel="noopener">GitHub</a>
+      <button type="button" class="pbtn" id="langBtn">EN</button>
+      <button type="button" class="pbtn" id="keyBtn"><span class="dot" id="keyDot"></span><span data-i18n="key"></span></button>
+    </div>
+  </header>
+
+  <aside class="feed" id="feed" aria-live="polite">
+    <h2 data-i18n="feed"></h2>
+    <ol id="feedList"></ol>
+  </aside>
+
+  <footer class="hud-bottom">
+    <form id="taskForm" class="taskbar">
+      <input id="task" type="text" maxlength="400" autocomplete="off" data-i18n-ph="placeholder" />
+      <button type="submit" class="pbtn primary" id="runBtn" data-i18n="run"></button>
+      <button type="button" class="pbtn" id="demoBtn" data-i18n="demo"></button>
+    </form>
+    <div class="controls">
+      <p class="hints" data-i18n="hints"></p>
+      <div class="cam">
+        <button type="button" class="pbtn small" id="turnL" data-i18n-label="turnL">↺</button>
+        <button type="button" class="pbtn small" id="turnR" data-i18n-label="turnR">↻</button>
+        <button type="button" class="pbtn small" id="zoomOut" data-i18n-label="zoomOut">−</button>
+        <button type="button" class="pbtn small" id="zoomIn" data-i18n-label="zoomIn">+</button>
+        <button type="button" class="pbtn small" id="pauseBtn" data-i18n-label="pause">❚❚</button>
+      </div>
+    </div>
+  </footer>
+
+  <aside class="answer" id="answerPanel" aria-hidden="true">
+    <div class="answer-head">
+      <h2 data-i18n="answer"></h2>
+      <button type="button" class="pbtn small" id="answerClose" data-i18n="close"></button>
+    </div>
+    <p class="answer-task" id="answerTask"></p>
+    <article id="answer"></article>
+    <div id="sourcesWrap" hidden>
+      <h3 data-i18n="sources"></h3>
+      <ol id="sources"></ol>
+    </div>
+    <button type="button" class="linkbtn" id="exportBtn" hidden>⤓ trace.json</button>
+  </aside>
+
+  <dialog id="keyDialog">
+    <form method="dialog" id="keyForm">
+      <h2 data-i18n="keyTitle"></h2>
+      <p class="muted" data-i18n="keyBody"></p>
+      <label><span data-i18n="keyLabel"></span><input id="keyInput" type="password" autocomplete="off" spellcheck="false" placeholder="sk-ant-…" /></label>
+      <a class="small-link" href="https://platform.claude.com/settings/keys" target="_blank" rel="noopener" data-i18n="keyGet"></a>
+      <label><span data-i18n="workspaceLabel"></span><input id="wsInput" type="text" autocomplete="off" spellcheck="false" placeholder="wrkspc_…" /></label>
+      <label class="check"><input id="rememberInput" type="checkbox" /> <span data-i18n="remember"></span></label>
+      <label class="check"><input id="searchInput" type="checkbox" checked /> <span data-i18n="useSearch"></span></label>
+      <p class="muted small" data-i18n="typicalCost"></p>
+      <div class="dialog-actions">
+        <button type="button" class="pbtn" id="forgetBtn" data-i18n="forget"></button>
+        <button type="submit" class="pbtn primary" value="save" data-i18n="save"></button>
+      </div>
+    </form>
+  </dialog>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
